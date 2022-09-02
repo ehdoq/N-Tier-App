@@ -5,6 +5,7 @@ using NLayerApp.Core.UnitOfWorks;
 using NLayerApp.Repository.AppDBContext;
 using NLayerApp.Repository.Repositories;
 using NLayerApp.Repository.UnitOfWorks;
+using NLayerApp.Service.Mapping;
 using NLayerApp.Service.Services;
 using System.Reflection;
 
@@ -32,6 +33,8 @@ builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 builder.Services.AddScoped(typeof(IService<>), typeof(Service<>));
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 #endregion
+
+builder.Services.AddAutoMapper(typeof(MapProfile));
 
 var app = builder.Build();
 

@@ -12,12 +12,23 @@ namespace NLayerApp.API.Controllers
         private readonly IService<Product>? _productService;
         private readonly IMapper? _mapper;
 
-        public ProductsController(IService<Product>? productService, IMapper? mapper)
+        private readonly IProductService _iProductService;
+        public ProductsController(IService<Product>? productService, IMapper? mapper, IProductService iProductService)
         {
             _productService = productService;
             _mapper = mapper;
+            _iProductService = iProductService;
         }
 
+        //GET api/Products/GetProductsWithCategory
+        //[HttpGet("GetProductsWithCategory")]
+        [HttpGet("[action]")]
+        public async Task<IActionResult> GetProductsWithCategory()
+        {
+            return CreateActionResult(await _iProductService.GetProductsWithCategoryAsync());
+        }
+
+        //GET api/Products/
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
@@ -28,6 +39,7 @@ namespace NLayerApp.API.Controllers
             //return Ok(CustomResponseDto<List<ProductDto>>.Success(200, productsDto));
         }
 
+        //GET api/Products/id
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int? id)
         {
@@ -37,6 +49,7 @@ namespace NLayerApp.API.Controllers
             return CreateActionResult(CustomResponseDto<ProductDto>.Success(200, productDto));
         }
 
+        //POST api/Products/
         [HttpPost]
         public async Task<IActionResult> Add(ProductDto productDto)
         {
@@ -46,6 +59,7 @@ namespace NLayerApp.API.Controllers
             return CreateActionResult(CustomResponseDto<ProductDto>.Success(200, productDtoMap));
         }
 
+        //PUT api/Products/
         [HttpPut]
         public async Task<IActionResult> Update(ProductUpdateDto productUpdateDto)
         {
@@ -54,6 +68,7 @@ namespace NLayerApp.API.Controllers
             return CreateActionResult(CustomResponseDto<NoContentDto>.Success(204));
         }
 
+        //DELETE api/Products/id
         [HttpDelete("{id}")]
         public async Task<IActionResult> Remove(int? id)
         {

@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using NLayerApp.Core.Entities.Concrete;
+using System.Reflection;
 
 namespace NLayerApp.Repository.AppDBContext
 {
@@ -13,5 +14,14 @@ namespace NLayerApp.Repository.AppDBContext
         public DbSet<Category>? Categories { get; set; }
         public DbSet<Product>? Products { get; set; }
         public DbSet<ProductFeature>? ProductFeatures { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+
+            //modelBuilder.ApplyConfiguration(new ProductConfiguration());
+
+            base.OnModelCreating(modelBuilder);
+        }
     }
 }

@@ -14,4 +14,8 @@
     <Folder Include="Controllers\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\NLayerApp.Service\NLayerApp.Service.csproj" />
+  </ItemGroup>
+
 </Project>

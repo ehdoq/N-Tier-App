@@ -42,7 +42,7 @@ namespace NLayerApp.API.Modules
                    .AsImplementedInterfaces()
                    .InstancePerLifetimeScope(); //Product ve Category Service için 
 
-            builder.RegisterType<ProductServiceWithCaching>().As<IProductService>();
+            //builder.RegisterType<ProductServiceWithCaching>().As<IProductService>();
 
             //InstancePerLifetimeScope => Scoped
             //InstancePerDependency => Transient

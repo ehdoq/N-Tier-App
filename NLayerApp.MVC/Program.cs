@@ -8,6 +8,7 @@ using NLayerApp.Web.Modules;
 using FluentValidation.AspNetCore;
 using NLayerApp.Service.Validations;
 using NLayerApp.MVC.Filters;
+using NLayerApp.MVC.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -37,6 +38,18 @@ builder.Host.ConfigureContainer<ContainerBuilder>(ContainerBuilder => ContainerB
 #endregion
 
 builder.Services.AddScoped(typeof(NotFoundFilter<>));
+
+#region HttpClient
+builder.Services.AddHttpClient<ProductApiService>(option =>
+{
+    option.BaseAddress = new Uri(builder.Configuration["BaseUrl"]);
+});
+
+builder.Services.AddHttpClient<CategoryApiService>(option =>
+{
+    option.BaseAddress = new Uri(builder.Configuration["BaseUrl"]);
+});
+#endregion
 
 var app = builder.Build();
 

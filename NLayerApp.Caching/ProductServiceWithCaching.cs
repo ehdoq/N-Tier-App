@@ -72,10 +72,10 @@ namespace NLayerApp.Caching
             return Task.FromResult(product);
         }
 
-        public Task<List<ProductsWithCategotyDto>>? GetProductsWithCategoryAsync()
+        public Task<List<ProductsWithCategoryDto>>? GetProductsWithCategoryAsync()
         {
             var products = _memoryCache.Get<IEnumerable<Product>>(CacheProductKey);
-            var productsWithCategoryDto = _mapper.Map<List<ProductsWithCategotyDto>>(products);
+            var productsWithCategoryDto = _mapper.Map<List<ProductsWithCategoryDto>>(products);
 
             return Task.FromResult(productsWithCategoryDto);
         }

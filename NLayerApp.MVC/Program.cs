@@ -5,11 +5,16 @@ using System.Reflection;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using NLayerApp.Web.Modules;
+using FluentValidation.AspNetCore;
+using NLayerApp.Service.Validations;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddControllersWithViews();
+#region FluentValidation
+builder.Services.AddControllersWithViews()
+                .AddFluentValidation(x => x.RegisterValidatorsFromAssemblyContaining<ProductDtoValidator>());
+#endregion
 
 #region AutoMapper
 builder.Services.AddAutoMapper(typeof(MapProfile));

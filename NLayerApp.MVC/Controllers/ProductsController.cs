@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using NLayerApp.Core.DTOs.EntityDtos;
 using NLayerApp.Core.Entities.Concrete;
 using NLayerApp.Core.Services;
+using NLayerApp.MVC.Filters;
 
 namespace NLayerApp.MVC.Controllers
 {
@@ -53,6 +54,7 @@ namespace NLayerApp.MVC.Controllers
             }
         }
 
+        [ServiceFilter(typeof(NotFoundFilter<Product>))]
         [HttpGet]
         public async Task<IActionResult> Update(int? id)
         {

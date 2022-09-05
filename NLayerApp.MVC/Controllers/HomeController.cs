@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using NLayerApp.MVC.Models;
-using System.Diagnostics;
+using NLayerApp.Core.ViewModels;
 
 namespace NLayerApp.MVC.Controllers
 {
@@ -24,9 +23,9 @@ namespace NLayerApp.MVC.Controllers
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
+        public IActionResult Error(ErrorViewModel errorViewModel)
         {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            return View(errorViewModel);
         }
     }
 }

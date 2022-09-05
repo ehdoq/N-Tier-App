@@ -8,12 +8,12 @@ using NLayerApp.Core.UnitOfWorks;
 
 namespace NLayerApp.Service.Services
 {
-    public class ProductServiceWithNoCaching : Service<Product>, IProductService
+    public class ProductService : Service<Product>, IProductService
     {
         private readonly IProductRepository _productRepository;
         private readonly IMapper _mapper;
 
-        public ProductServiceWithNoCaching(IRepository<Product> repository, 
+        public ProductService(IRepository<Product> repository, 
                                            IUnitOfWork unitOfWork, 
                                            IProductRepository productRepository,
                                            IMapper mapper) : base(repository, unitOfWork)
@@ -22,12 +22,12 @@ namespace NLayerApp.Service.Services
             _mapper = mapper;
         }
 
-        public async Task<CustomResponseDto<List<ProductsWithCategotyDto>>>? GetProductsWithCategoryAsync()
+        public async Task<List<ProductsWithCategotyDto>>? GetProductsWithCategoryAsync()
         {
             var products = await _productRepository.GetProductsWithCategoryAsync();
             var productsDto = _mapper.Map<List<ProductsWithCategotyDto>>(products);
 
-            return CustomResponseDto<List<ProductsWithCategotyDto>>.Success(200, productsDto);
+            return productsDto;
         }
     }
 }

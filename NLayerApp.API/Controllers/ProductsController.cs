@@ -1,9 +1,11 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using NLayerApp.API.Filters;
 using NLayerApp.Core.DTOs.CustomResponseDto;
 using NLayerApp.Core.DTOs.EntityDtos;
 using NLayerApp.Core.Entities.Concrete;
 using NLayerApp.Core.Services;
+using NLayerApp.Service.Exceptions;
 
 namespace NLayerApp.API.Controllers
 {
@@ -38,6 +40,7 @@ namespace NLayerApp.API.Controllers
         }
 
         //GET api/Products/id
+        [ServiceFilter(typeof(NotFoundFilter<Product>))]
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int? id)
         {
@@ -67,6 +70,7 @@ namespace NLayerApp.API.Controllers
         }
 
         //DELETE api/Products/id
+        [ServiceFilter(typeof(NotFoundFilter<Product>))]
         [HttpDelete("{id}")]
         public async Task<IActionResult> Remove(int? id)
         {

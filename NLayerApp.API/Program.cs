@@ -21,8 +21,10 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
+#region FluentValidation
 builder.Services.AddControllers(options => options.Filters.Add(new ValidateFilterAttribute()))
                 .AddFluentValidation(x => x.RegisterValidatorsFromAssemblyContaining<ProductDtoValidator>()); ;
+#endregion
 
 builder.Services.Configure<ApiBehaviorOptions>(options =>
 {
@@ -32,6 +34,10 @@ builder.Services.Configure<ApiBehaviorOptions>(options =>
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+#region MemoryCache
+builder.Services.AddMemoryCache();
+#endregion
 
 #region DbContext
 builder.Services.AddDbContext<AppDbContext>(x =>
@@ -47,10 +53,14 @@ builder.Services.AddDbContext<AppDbContext>(x =>
 builder.Services.AddScoped(typeof(NotFoundFilter<>));
 #endregion
 
+#region AutoMapper
 builder.Services.AddAutoMapper(typeof(MapProfile));
+#endregion
 
+#region Autofac
 builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory());
 builder.Host.ConfigureContainer<Autofac.ContainerBuilder>(ContainerBuilder => ContainerBuilder.RegisterModule(new RepoServiceModule()));
+#endregion
 
 var app = builder.Build();
 

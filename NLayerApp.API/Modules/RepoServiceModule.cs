@@ -1,4 +1,5 @@
 ﻿using Autofac;
+using NLayerApp.Caching;
 using NLayerApp.Core.Repositories;
 using NLayerApp.Core.Services;
 using NLayerApp.Core.UnitOfWorks;
@@ -40,6 +41,8 @@ namespace NLayerApp.API.Modules
                    .Where(x => x.Name.EndsWith("Service"))
                    .AsImplementedInterfaces()
                    .InstancePerLifetimeScope(); //Product ve Category Service için 
+
+            builder.RegisterType<ProductServiceWithCaching>().As<IProductService>();
 
             //InstancePerLifetimeScope => Scoped
             //InstancePerDependency => Transient

@@ -17,7 +17,7 @@ namespace NLayerApp.Web.Modules
         protected override void Load(ContainerBuilder builder)
         {
             builder.RegisterGeneric(typeof(Repository<>))
-                   .As(typeof(Repository<>))
+                   .As(typeof(IRepository<>))
                    .InstancePerLifetimeScope();
 
             builder.RegisterGeneric(typeof(Service<>))

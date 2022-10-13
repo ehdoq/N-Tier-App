@@ -27,6 +27,11 @@ namespace NLayerApp.Caching
             _memoryCache = memoryCache;
             _productRepository = productRepository;
             _unitOfWork = unitOfWork;
+            
+            if (!_memoryCache.TryGetValue(CacheProductKey, out _))
+            {
+                _memoryCache.Set(CacheProductKey, _repository.GetProductsWitCategory().Result);
+            }
         }
 
         public async Task CacheAllProductsAsync()
